@@ -13,8 +13,11 @@ export default function Page() {
                 <div
                     key={index}
                     className="movie-card"
-                    onClick={() => {
-                        navigate(`movies/${movie.title}`);
+                    onClick={async () => {
+                        const navigationPromise = navigate(`movies/${movie.title}`);
+                        console.log("The URL changed but the new page hasn't rendered yet.");
+                        await navigationPromise;
+                        console.log("The new page has finished rendering.");
                     }}
                 >
                     <img src={movie.photoSrc} alt={movie.title} className="movie-poster" loading="lazy" />
