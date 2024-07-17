@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "npm run server",
         "build": "vite build",
-        "preview": "vite preview",
+        "preview": "vite preview --port 4000",
         "server": "tsx server/server.ts",
         "seed": "npx prisma migrate dev && tsx prisma/seed/seed.ts",
         "server:prod": "cross-env NODE_ENV=production tsx src/server/server.ts",
