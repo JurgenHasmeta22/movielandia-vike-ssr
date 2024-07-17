@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type AppStoreState from "@/types/IStore";
 import { devtools, persist } from "zustand/middleware";
+import AppStoreState from "../types/IStore";
 
 export const useStore = create<AppStoreState>()(
     devtools(
