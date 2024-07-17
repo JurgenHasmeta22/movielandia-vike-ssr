@@ -1,4 +1,3 @@
-import React from "react";
 import { useData } from "vike-react/useData";
 import { Data } from "./+data";
 

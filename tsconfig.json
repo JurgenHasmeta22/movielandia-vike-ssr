@@ -1,20 +1,22 @@
 {
     "compilerOptions": {
         "strict": true,
-        "allowJs": true,
-        "checkJs": true,
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true,
-        "sourceMap": true,
-        "module": "ESNext",
-        "noEmit": true,
-        "moduleResolution": "bundler",
+        "module": "ES2020",
         "target": "ES2020",
+        // Doesn't apply to server/, see ts-node config down below and server/tsconfig.json
+        "moduleResolution": "Bundler",
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
-        "types": ["vite/client", "vike-react"],
-        "jsx": "preserve",
-        "jsxImportSource": "react"
+        "types": ["vite/client"],
+        "jsx": "react-jsx",
+        "skipLibCheck": true,
+        "esModuleInterop": true
     },
-    "exclude": ["dist"]
+    "ts-node": {
+        "transpileOnly": true,
+        "esm": true,
+        "compilerOptions": {
+            "module": "Node16",
+            "moduleResolution": "Node16"
+        }
+    }
 }

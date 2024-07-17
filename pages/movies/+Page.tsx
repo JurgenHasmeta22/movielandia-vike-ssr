@@ -1,5 +1,4 @@
 import { Movie } from "@prisma/client";
-import React from "react";
 import { useData } from "vike-react/useData";
 import { navigate } from "vike/client/router";
 import { Data } from "./+data";

@@ -1,9 +1,9 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { renderPage } from "vike/server";
 import { telefunc } from "telefunc";
+import { root } from "./root.js";
 
 const isProduction = process.env.NODE_ENV === "production";
-const root = `${__dirname}/..`;
 
 startServer();
 
@@ -13,6 +13,7 @@ async function startServer() {
     if (isProduction) {
         app.use(express.static(`${root}/dist/client`));
     } else {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const vite = require("vite");
 
         const viteDevMiddleware = (
@@ -27,7 +28,7 @@ async function startServer() {
 
     app.use(express.text());
 
-    app.all("/_telefunc", async (req: any, res: any) => {
+    app.all("/_telefunc", async (req: Request, res: Response) => {
         const context = {};
         const httpResponse = await telefunc({
             url: req.originalUrl,
@@ -40,7 +41,7 @@ async function startServer() {
         res.status(statusCode).type(contentType).send(body);
     });
 
-    app.get("*", async (req: any, res: any, next: any) => {
+    app.get("*", async (req: Request, res: Response, next: NextFunction) => {
         const pageContextInit = {
             urlOriginal: req.originalUrl,
         };
