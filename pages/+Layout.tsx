@@ -1,10 +1,8 @@
-export { Layout };
-
-import "./style.css";
 import React from "react";
 import { Link } from "../components/Link";
+import "./style.css";
 
-function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       style={{
@@ -15,7 +13,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     >
       <Sidebar>
         <Link href="/">Welcome</Link>
-        <Link href="/todos">Todos list</Link>
+        <Link href="/movies">Movies list</Link>
       </Sidebar>
       <Content>{children}</Content>
     </div>
