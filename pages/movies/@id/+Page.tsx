@@ -1,8 +1,10 @@
+import { Movie } from "@prisma/client";
 import React from "react";
 import { useData } from "vike-react/useData";
+import { Data } from "./+data";
 
 export default function Page() {
-    const movie = useData<any>();
+    const movie = useData<Data>();
 
     return (
         <div className="movie-grid">
