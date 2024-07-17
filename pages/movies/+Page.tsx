@@ -14,10 +14,9 @@ export default function Page() {
                     key={index}
                     className="movie-card"
                     onClick={async () => {
-                        const navigationPromise = navigate(`movies/${movie.title}`);
-                        console.log("The URL changed but the new page hasn't rendered yet.");
+                        // Add always / before every route navigation had a crazy error
+                        const navigationPromise = navigate(`/movies/${movie.title}`);
                         await navigationPromise;
-                        console.log("The new page has finished rendering.");
                     }}
                 >
                     <img src={movie.photoSrc} alt={movie.title} className="movie-poster" loading="lazy" />

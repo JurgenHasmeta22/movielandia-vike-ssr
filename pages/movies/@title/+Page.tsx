@@ -1,4 +1,3 @@
-import { Movie } from "@prisma/client";
 import React from "react";
 import { useData } from "vike-react/useData";
 import { Data } from "./+data";
@@ -6,6 +5,10 @@ import { Data } from "./+data";
 export default function Page() {
     const movie = useData<Data>();
 
+    if (!movie) {
+        return <>Loading...</>;
+    }
+    
     return (
         <div className="movie-grid">
             <div key={movie.id} className="movie-card">

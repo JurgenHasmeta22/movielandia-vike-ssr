@@ -7,4 +7,6 @@ const config = {
     stream: true,
     ssr: true,
     extends: vikeReact,
+    hydrationCanBeAborted: true,
+    clientRouting: true,
 } satisfies Config;

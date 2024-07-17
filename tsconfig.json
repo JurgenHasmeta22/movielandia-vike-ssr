@@ -14,7 +14,11 @@
         "moduleResolution": "Bundler",
         "target": "ES2022",
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
-        "types": ["vite/client"]
+        "types": ["vite/client"],
+        // "baseUrl": "/",
+        // "paths": {
+        //     "@/*": ["/*"]
+        // }
     },
     "exclude": ["dist"]
 }

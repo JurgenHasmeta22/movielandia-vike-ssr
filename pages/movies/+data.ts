@@ -3,9 +3,7 @@ import { getAllMovies } from "../../actions/movies.telefunc";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 
-const data = async () => {
+export const data = async () => {
     const movies: Movie[] = await getAllMovies();
     return movies;
 };
-
-export { data };
