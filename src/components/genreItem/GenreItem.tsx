@@ -15,7 +15,6 @@ export default function GenreItem({ genre }: IGenreItemProps) {
                 onClick={async function () {
                     const navigationPromise = navigate(`/genres/${genre.name}`);
                     await navigationPromise;
-                    window.scrollTo(0, 0);
                 }}
                 sx={{
                     display: "flex",

@@ -5,7 +5,7 @@ import AppStoreState from "~/types/IStore";
 export const useStore = create<AppStoreState>()(
     devtools(
         persist(
-            (set, get): AppStoreState => ({
+            (set): AppStoreState => ({
                 user: null,
                 setUser: (data) => {
                     set({ user: data });
@@ -14,11 +14,11 @@ export const useStore = create<AppStoreState>()(
                 setIsUserLoading: (data) => {
                     set({ isUserLoading: data });
                 },
-                mobileOpen: window.innerWidth < 768 ? true : false,
+                // mobileOpen: window.innerWidth < 768 ? true : false,
                 setMobileOpen: (data) => {
                     set({ mobileOpen: data });
                 },
-                isPageShrunk: window.innerWidth < 768 ? true : false,
+                // isPageShrunk: window.innerWidth < 768 ? true : false,
                 setIsPageShrunk: (data) => {
                     set({ isPageShrunk: data });
                 },

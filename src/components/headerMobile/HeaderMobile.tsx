@@ -12,10 +12,8 @@ import {
     Stack,
     TextField,
     Typography,
-    colors,
     useTheme,
 } from "@mui/material";
-import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import { useStore } from "~/store/store";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -26,15 +24,17 @@ import { tokens } from "~/utils/theme";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import IGenre from "~/types/IGenre";
+import { Link } from "../link/Link";
+import { navigate } from "vike/client/router";
 
 interface IHeaderMenu {
     closeMenuGenres: () => void;
-    genres: IGenre[];
-    anchorElProfile: null | HTMLElement;
     openMenuProfile: (event: any) => void;
     closeMenuProfile: () => void;
     redirectToProfile: () => void;
     handleLogout: () => void;
+    genres: IGenre[];
+    anchorElProfile: null | HTMLElement;
 }
 
 export default function HeaderMobile({
@@ -48,8 +48,6 @@ export default function HeaderMobile({
 }: IHeaderMenu) {
     const [anchorElGenresMobile, setAnchorElGenresMobile] = useState<null | HTMLElement>(null);
     const { user, openDrawer, setOpenDrawer } = useStore();
-    const [searchParams, setSearchParams] = useSearchParams();
-    const navigate = useNavigate();
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -66,15 +64,7 @@ export default function HeaderMobile({
     };
 
     return (
-        <Drawer
-            variant="persistent"
-            open={openDrawer}
-            onClose={handleDrawerToggle}
-            component={"aside"}
-            // PaperProps={{
-            //     sx: { width: "100vw", height: "100vh" },
-            // }}
-        >
+        <Drawer variant="persistent" open={openDrawer} onClose={handleDrawerToggle} component={"aside"}>
             <Box>
                 <Box
                     sx={{
@@ -87,7 +77,6 @@ export default function HeaderMobile({
                     <IconButton
                         onClick={() => {
                             setOpenDrawer(false);
-                            window.scrollTo(0, 0);
                         }}
                     >
                         <CloseOutlined />
@@ -103,79 +92,33 @@ export default function HeaderMobile({
                     }}
                 >
                     <ListItem>
-                        <NavLink
-                            style={{
-                                cursor: "pointer",
-                                textDecoration: "none",
-                                color: colors.primary[100],
-                                display: "flex",
-                                flexDirection: "row",
-                                columnGap: 1,
-                                alignItems: "center",
-                                fontSize: 20,
-                            }}
-                            href={"/"}
-                            onClick={() => {
-                                setOpenDrawer(false);
-                                window.scrollTo(0, 0);
-                            }}
-                        >
-                            MovieLandia24
-                        </NavLink>
+                        <Link href={"/"}>
+                            <Typography
+                                onClick={() => {
+                                    setOpenDrawer(false);
+                                }}
+                            >
+                                MovieLandia24
+                            </Typography>
+                        </Link>
                     </ListItem>
                     <ListItem>
-                        <NavLink
-                            style={({ isActive, isTransitioning }) => {
-                                return {
-                                    fontWeight: isActive ? "bold" : "",
-                                    color: isActive ? colors.greenAccent[500] : colors.primary[100],
-                                    viewTransitionName: isTransitioning ? "slide" : "",
-                                    fontSize: "16px",
-                                    textDecorationLine: isActive ? "underline" : "none",
-                                    textDecorationColor: isActive ? colors.greenAccent[500] : "",
-                                    textDecorationThickness: "2px",
-                                    textUnderlineOffset: "4px",
-                                    cursor: "pointer",
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    columnGap: 1,
-                                    alignItems: "center",
-                                };
-                            }}
+                        <Link
                             href="/movies"
-                            onClick={() => {
-                                setOpenDrawer(false);
-                                window.scrollTo(0, 0);
-                            }}
+                            // onClick={() => {
+                            //     setOpenDrawer(false);
+                            //     window.scrollTo(0, 0);
+                            // }}
                         >
                             <MovieIcon fontSize={"large"} />
                             Movies
-                        </NavLink>
+                        </Link>
                     </ListItem>
                     <ListItem onMouseEnter={openMenuGenresMobile} onMouseLeave={closeMenuGenresMobile}>
-                        <NavLink
-                            style={({ isActive, isTransitioning }) => {
-                                return {
-                                    fontWeight: isActive ? "bold" : "",
-                                    color: isActive ? colors.greenAccent[500] : colors.primary[100],
-                                    viewTransitionName: isTransitioning ? "slide" : "",
-                                    fontSize: "16px",
-                                    textDecorationLine: isActive ? "underline" : "none",
-                                    textDecorationColor: isActive ? colors.greenAccent[500] : "",
-                                    textDecorationThickness: "2px",
-                                    textUnderlineOffset: "4px",
-                                    cursor: "pointer",
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    columnGap: 1,
-                                    alignItems: "center",
-                                };
-                            }}
-                            href={"/genres"}
-                        >
+                        <Link href={"/genres"}>
                             <SubtitlesIcon fontSize={"large"} />
                             Genres
-                        </NavLink>
+                        </Link>
                         <Menu
                             anchorEl={anchorElGenresMobile}
                             open={Boolean(anchorElGenresMobile)}
@@ -196,11 +139,11 @@ export default function HeaderMobile({
                             {genres.map((genre: IGenre) => (
                                 <MenuItem
                                     key={genre.id}
-                                    onClick={() => {
+                                    onClick={async () => {
                                         closeMenuGenres();
-                                        navigate(`/genres/${genre.name}`);
+                                        const navigationPromise = navigate(`/genres/${genre.name}`);
+                                        await navigationPromise;
                                         setOpenDrawer(false);
-                                        window.scrollTo(0, 0);
                                     }}
                                 >
                                     {genre.name}
@@ -209,33 +152,16 @@ export default function HeaderMobile({
                         </Menu>
                     </ListItem>
                     <ListItem>
-                        <NavLink
-                            style={({ isActive, isTransitioning }) => {
-                                return {
-                                    fontWeight: isActive ? "bold" : "",
-                                    color: isActive ? colors.greenAccent[500] : colors.primary[100],
-                                    viewTransitionName: isTransitioning ? "slide" : "",
-                                    fontSize: "16px",
-                                    textDecorationLine: isActive ? "underline" : "none",
-                                    textDecorationColor: isActive ? colors.greenAccent[500] : "",
-                                    textDecorationThickness: "2px",
-                                    textUnderlineOffset: "4px",
-                                    cursor: "pointer",
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    columnGap: 1,
-                                    alignItems: "center",
-                                };
-                            }}
+                        <Link
                             href="/series"
-                            onClick={() => {
-                                setOpenDrawer(false);
-                                window.scrollTo(0, 0);
-                            }}
+                            // onClick={() => {
+                            //     setOpenDrawer(false);
+                            //     window.scrollTo(0, 0);
+                            // }}
                         >
                             <LocalMoviesIcon fontSize={"large"} />
                             Series
-                        </NavLink>
+                        </Link>
                     </ListItem>
                     <ListItem
                         sx={{
@@ -254,10 +180,8 @@ export default function HeaderMobile({
 
                                 if (value.length > 0) {
                                     navigate(`/movies?search=${value}`);
-                                    window.scrollTo(0, 0);
                                 } else {
                                     navigate("/movies");
-                                    window.scrollTo(0, 0);
                                 }
                             }}
                             InputProps={{
@@ -274,10 +198,10 @@ export default function HeaderMobile({
                                     <InputAdornment position="end">
                                         <Clear
                                             sx={{ cursor: "pointer" }}
-                                            onClick={() => {
+                                            onClick={async () => {
                                                 if (searchParams.get("search")) {
-                                                    navigate("/movies");
-                                                    window.scrollTo(0, 0);
+                                                    const navigationPromise = navigate("/movies");
+                                                    await navigationPromise;
                                                 }
                                             }}
                                         />
@@ -289,9 +213,9 @@ export default function HeaderMobile({
                             <Box>
                                 <IconButton
                                     id="buttonProfile"
-                                    aria-controls={Boolean(anchorElProfile) ? "menuProfile" : undefined}
+                                    aria-controls={anchorElProfile ? "menuProfile" : undefined}
                                     aria-haspopup="true"
-                                    aria-expanded={Boolean(anchorElProfile) ? "true" : undefined}
+                                    aria-expanded={anchorElProfile ? "true" : undefined}
                                     onClick={openMenuProfile}
                                     sx={{
                                         display: "flex",

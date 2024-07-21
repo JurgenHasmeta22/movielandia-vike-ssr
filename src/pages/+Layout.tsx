@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import ScrollToTop from "~/components/scrollToTop/scrollToTop";
+import Header from "~/components/header/Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -11,6 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 margin: "auto",
             }}
         >
+            <Header />
             <Sidebar>
                 <a href="/">Welcome</a>
                 <a href="/movies">Movies list</a>

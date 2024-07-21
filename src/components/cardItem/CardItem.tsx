@@ -204,7 +204,6 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                                         key={index}
                                         onClick={function (e) {
                                             e.stopPropagation();
-                                            window.scrollTo(0, 0);
                                         }}
                                         sx={{
                                             backgroundColor: "gold",

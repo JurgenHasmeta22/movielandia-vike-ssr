@@ -27,7 +27,6 @@ export default function FavoritesTab({ type }: FavoritesTabProps) {
             if (response && !response.error) {
                 setUser(response);
                 toast.success("Movie unbookmarked successfully!");
-                window.scrollTo(0, 0);
             } else {
                 toast.error("Movie not unbookmarked successfully!");
             }
@@ -45,7 +44,6 @@ export default function FavoritesTab({ type }: FavoritesTabProps) {
             if (response && !response.error) {
                 setUser(response);
                 toast.success("Serie unbookmarked successfully!");
-                window.scrollTo(0, 0);
             } else {
                 toast.error("Serie not unbookmarked successfully!");
             }
@@ -80,7 +78,6 @@ export default function FavoritesTab({ type }: FavoritesTabProps) {
                                               .join("");
 
                                 navigate(`/${urlPath}/${formattedTitle}`);
-                                window.scrollTo(0, 0);
                             }}
                             sx={{
                                 height: "100%",

@@ -5,9 +5,9 @@ export default interface AppStoreState {
     setUser: (data: IUser | null) => void;
     isUserLoading: boolean;
     setIsUserLoading: (data: boolean) => void;
-    mobileOpen: boolean | any;
+    mobileOpen?: boolean | any;
     setMobileOpen: (data: any) => void;
-    isPageShrunk: boolean | any;
+    isPageShrunk?: boolean | any;
     setIsPageShrunk: (data: any) => void;
     isOpenSidebarAdmin: boolean | any;
     setIsOpenSidebarAdmin: (data: any) => void;
