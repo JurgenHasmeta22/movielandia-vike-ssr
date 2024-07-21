@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import ScrollToTop from "~/components/scrollToTop/scrollToTop";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -50,6 +51,7 @@ function Content({ children }: { children: React.ReactNode }) {
             >
                 {children}
             </div>
+            <ScrollToTop />
         </div>
     );
 }

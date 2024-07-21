@@ -1,7 +1,13 @@
 import { Movie } from "@prisma/client";
 import { useData } from "vike-react/useData";
-import { navigate } from "vike/client/router";
+// import { navigate } from "vike/client/router";
 import { Data } from "./+data";
+import CardItem from "~/components/cardItem/CardItem";
+
+// onClick={async () => {
+//     const navigationPromise = navigate(`/movies/${movie.title}`);
+//     await navigationPromise;
+// }}
 
 export default function Page() {
     const movies = useData<Data>();
@@ -9,33 +15,7 @@ export default function Page() {
     return (
         <div className="movie-grid">
             {movies.map((movie: Movie, index: number) => (
-                <div
-                    key={index}
-                    className="movie-card"
-                    onClick={async () => {
-                        const navigationPromise = navigate(`/movies/${movie.title}`);
-                        await navigationPromise;
-                    }}
-                >
-                    <img src={movie.photoSrc} alt={movie.title} className="movie-poster" loading="lazy" />
-                    <div className="movie-info">
-                        <h2 className="movie-title">{movie.title}</h2>
-                        <div className="movie-metadata">
-                            <span className="movie-year">{movie.releaseYear}</span>
-                            <span className="movie-duration">{movie.duration}</span>
-                            <span className="movie-rating">IMDb: {movie.ratingImdb.toFixed(1)}</span>
-                        </div>
-                        <p className="movie-description">{movie.description}</p>
-                        <a
-                            href={movie.trailerSrc}
-                            className="movie-trailer-btn"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Watch Trailer
-                        </a>
-                    </div>
-                </div>
+                <CardItem data={movie} key={index} type="movie" />
             ))}
         </div>
     );

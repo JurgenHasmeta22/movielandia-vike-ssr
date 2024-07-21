@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StarIcon from "@mui/icons-material/Star";
+import { Link } from "../link/Link";
 
 interface ICardItemProps {
     data: any;
@@ -17,12 +17,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
 
     return (
         <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
-            <Link
-                to={path}
-                style={{
-                    textDecoration: "none",
-                }}
-            >
+            <Link to={path}>
                 <Card
                     sx={{
                         display: "flex",
@@ -202,7 +197,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                                 }}
                             >
                                 {data?.genres?.map((genre: any, index: number) => (
-                                    <Link to={`/genres/${genre.name}`} style={{ textDecoration: "none" }}>
+                                    <Link to={`/genres/${genre.name}`} key={index}>
                                         <Typography
                                             component={"span"}
                                             key={index}

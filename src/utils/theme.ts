@@ -1,4 +1,4 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 import { createContext, useState, useMemo } from "react";
 
 export const tokens = (mode: any) => ({
