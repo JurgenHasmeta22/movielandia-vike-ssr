@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "../components/Link";
 import "./style.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -12,8 +11,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             }}
         >
             <Sidebar>
-                <Link href="/">Welcome</Link>
-                <Link href="/movies">Movies list</Link>
+                <a href="/">Welcome</a>
+                <a href="/movies">Movies list</a>
             </Sidebar>
             <Content>{children}</Content>
         </div>

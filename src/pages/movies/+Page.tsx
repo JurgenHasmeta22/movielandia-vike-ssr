@@ -13,7 +13,6 @@ export default function Page() {
                     key={index}
                     className="movie-card"
                     onClick={async () => {
-                        // Add always / before every route navigation had a crazy error
                         const navigationPromise = navigate(`/movies/${movie.title}`);
                         await navigationPromise;
                     }}

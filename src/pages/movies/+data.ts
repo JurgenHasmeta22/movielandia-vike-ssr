@@ -1,5 +1,5 @@
 import { Movie } from "@prisma/client";
-import { getAllMovies } from "../../actions/movies.telefunc";
+import { getAllMovies } from "~/actions/movies.telefunc";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 

@@ -10,10 +10,11 @@
         "jsx": "react-jsx",
         "skipLibCheck": true,
         "esModuleInterop": true,
-        "baseUrl": "./",
         "paths": {
             "~/*": ["./src/*"]
         }
     },
-    "include": ["src"]
+    "ts-node": {
+        "transpileOnly": true
+    }
 }

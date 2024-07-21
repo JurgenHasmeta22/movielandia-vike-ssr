@@ -1,6 +1,6 @@
 import { PageContextServer } from "vike/types";
 import { Movie } from "@prisma/client";
-import { getMovieByTitle } from "../../../actions/movies.telefunc";
+import { getMovieByTitle } from "~/actions/movies.telefunc";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 
