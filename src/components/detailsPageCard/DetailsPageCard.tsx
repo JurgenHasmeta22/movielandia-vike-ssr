@@ -4,12 +4,12 @@ import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import StarRateIcon from "@mui/icons-material/StarRate";
-import { Box, Button, Divider, List, ListItem, Typography, colors, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Button, Divider, List, ListItem, Typography, useTheme } from "@mui/material";
 import { tokens } from "~/utils/theme";
 import IMovie from "~/types/IMovie";
 import ISerie from "~/types/ISerie";
 import { useStore } from "~/store/store";
+import { Link } from "../link/Link";
 
 interface IDetailsPageCardProps {
     data: IMovie | ISerie;
@@ -80,12 +80,7 @@ export function DetailsPageCard({
                         {data.genres?.map((genre: any, index: number) => (
                             <Box key={index}>
                                 <ListItem key={index}>
-                                    <Link
-                                        to={`/genres/${genre.genre.name}`}
-                                        style={{
-                                            textDecoration: "none",
-                                        }}
-                                    >
+                                    <Link to={`/genres/${genre.genre.name}`}>
                                         <Typography
                                             component={"span"}
                                             sx={{

@@ -1,14 +1,13 @@
 import { Box, Divider, Stack, Typography, useTheme } from "@mui/material";
-import IMovie from "~/types/IMovie";
 import CardItem from "../cardItem/CardItem";
 import { tokens } from "~/utils/theme";
 
-interface ILatestList {
+interface ILatestListProps {
     data: any;
     type: string;
 }
 
-export function LatestList({ data, type }: ILatestList) {
+export function LatestList({ data, type }: ILatestListProps) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 

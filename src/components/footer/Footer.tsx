@@ -10,7 +10,6 @@ import {
     useTheme,
     Divider,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
 import { tokens } from "~/utils/theme";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -21,6 +20,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import { Link } from "../link/Link";
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();
@@ -47,24 +47,24 @@ const Footer = (): React.JSX.Element => {
                     </Typography>
                     <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack spacing={1} pt={1}>
-                        <NavLink to="/movies" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        <Link to="/movies">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <MovieIcon />
                                 <Typography>Movies</Typography>
                             </Stack>
-                        </NavLink>
-                        <NavLink to="/series" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        </Link>
+                        <Link to="/series">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LocalMoviesIcon />
                                 <Typography>Series</Typography>
                             </Stack>
-                        </NavLink>
-                        <NavLink to="/genres" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        </Link>
+                        <Link to="/genres">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <SubtitlesIcon />
                                 <Typography>Genres</Typography>
                             </Stack>
-                        </NavLink>
+                        </Link>
                     </Stack>
                 </Box>
                 <Box>
@@ -73,18 +73,18 @@ const Footer = (): React.JSX.Element => {
                     </Typography>
                     <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack spacing={1} mt={1}>
-                        <NavLink to="/login" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        <Link to="/login">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LockOpenIcon />
                                 <Typography>Sign In</Typography>
                             </Stack>
-                        </NavLink>
-                        <NavLink to="/register" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        </Link>
+                        <Link to="/register">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <AppRegistrationIcon />
                                 <Typography>Sign Up</Typography>
                             </Stack>
-                        </NavLink>
+                        </Link>
                     </Stack>
                 </Box>
                 <Box>

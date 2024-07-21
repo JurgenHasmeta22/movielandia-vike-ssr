@@ -1,14 +1,11 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { useStore } from "~/store/store";
 import { tokens } from "~/utils/theme";
 import ClearIcon from "@mui/icons-material/Clear";
 import { toast } from "react-toastify";
-import movieService from "~/services/api/movieService";
 import IMovie from "~/types/IMovie";
 import ISerie from "~/types/ISerie";
-import serieService from "~/services/api/serieService";
 
 interface FavoritesTabProps {
     type: "Movies" | "Series";
@@ -25,7 +22,7 @@ export default function FavoritesTab({ type }: FavoritesTabProps) {
         if (!user || !movie) return;
 
         try {
-            const response = await movieService.removeFromFavorites(movie?.id!, user?.id);
+            const response = await removeFromFavorites(movie?.id!, user?.id);
 
             if (response && !response.error) {
                 setUser(response);
@@ -43,7 +40,7 @@ export default function FavoritesTab({ type }: FavoritesTabProps) {
         if (!user || !serie) return;
 
         try {
-            const response = await serieService.removeFromFavorites(serie.id, user.id);
+            const response = await removeFromFavorites(serie.id, user.id);
 
             if (response && !response.error) {
                 setUser(response);

@@ -18,6 +18,17 @@ Table User {
   downvotedMovies DownvoteMovie [not null]
   upvotedSeries UpvoteSerie [not null]
   downvotedSeries DownvoteSerie [not null]
+  UserEpisodeRating UserEpisodeRating [not null]
+  UserEpisodeFavorite UserEpisodeFavorite [not null]
+}
+
+Table UserEpisodeRating {
+  id Int [pk, increment]
+  rating Float [not null]
+  userId Int [not null]
+  user User [not null]
+  episodeId Int [not null]
+  episode Episode [not null]
 }
 
 Table UserMovieRating {
@@ -52,6 +63,14 @@ Table UserSerieFavorite {
   serieId Int [not null]
   user User [not null]
   serie Serie [not null]
+}
+
+Table UserEpisodeFavorite {
+  id Int [pk, increment]
+  userId Int [not null]
+  episodeId Int [not null]
+  user User [not null]
+  episode Episode [not null]
 }
 
 Table SerieReview {
@@ -180,6 +199,21 @@ Table Serie {
   usersDownvotes DownvoteSerie [not null]
 }
 
+Table Episode {
+  id Int [pk, increment]
+  title String [not null, default: '']
+  photoSrc String [not null, default: '']
+  videoSrc String [not null, default: '']
+  description String [not null, default: '']
+  seasonId Int [not null]
+  usersWhoBookmarkedIt UserEpisodeFavorite [not null]
+  usersWhoRatedIt UserEpisodeRating [not null]
+}
+
+Ref: UserEpisodeRating.userId > User.id [delete: Cascade]
+
+Ref: UserEpisodeRating.episodeId > Episode.id [delete: Cascade]
+
 Ref: UserMovieRating.userId > User.id [delete: Cascade]
 
 Ref: UserMovieRating.movieId > Movie.id [delete: Cascade]
@@ -195,6 +229,10 @@ Ref: UserMovieFavorite.movieId > Movie.id [delete: Cascade]
 Ref: UserSerieFavorite.userId > User.id [delete: Cascade]
 
 Ref: UserSerieFavorite.serieId > Serie.id [delete: Cascade]
+
+Ref: UserEpisodeFavorite.userId > User.id [delete: Cascade]
+
+Ref: UserEpisodeFavorite.episodeId > Episode.id [delete: Cascade]
 
 Ref: SerieReview.userId > User.id [delete: Cascade]
 

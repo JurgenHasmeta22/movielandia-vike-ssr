@@ -1,21 +1,20 @@
 import { Card, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import IGenre from "~/types/IGenre";
+import { navigate } from "vike/client/router";
 
 interface IGenreItemProps {
     genre: IGenre;
 }
 
 export default function GenreItem({ genre }: IGenreItemProps) {
-    const navigate = useNavigate();
-
     return (
         <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
             <Card
                 key={genre.id}
-                onClick={function () {
-                    navigate(`/genres/${genre.name}`);
+                onClick={async function () {
+                    const navigationPromise = navigate(`/genres/${genre.name}`);
+                    await navigationPromise;
                     window.scrollTo(0, 0);
                 }}
                 sx={{

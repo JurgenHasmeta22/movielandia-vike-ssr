@@ -1,14 +1,13 @@
-import React from "react";
 import Slider from "react-slick";
 import { Box, Button, IconButton, Typography, useMediaQuery } from "@mui/material";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import IMovie from "~/types/IMovie";
 import ISerie from "~/types/ISerie";
+import { Link } from "../link/Link";
 
 interface ICarouselProps {
     data: IMovie[] | ISerie[];
@@ -37,6 +36,7 @@ const CustomNextArrow = (props: any) => {
 
 const CustomPrevArrow = (props: any) => {
     const { onClick } = props;
+
     return (
         <IconButton
             onClick={onClick}
