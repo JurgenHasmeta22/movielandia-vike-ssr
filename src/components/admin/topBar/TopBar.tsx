@@ -100,7 +100,7 @@ const TopBar = () => {
                         </MenuItem>
                         {/* <MenuItem>
                             <Link
-                                to="/changePassword"
+                                href="/changePassword"
                                 style={{ color: colors.primary[100], textDecoration: "none" }}
                             >
                                 Change password

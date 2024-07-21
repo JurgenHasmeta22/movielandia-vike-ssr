@@ -80,7 +80,7 @@ export function DetailsPageCard({
                         {data.genres?.map((genre: any, index: number) => (
                             <Box key={index}>
                                 <ListItem key={index}>
-                                    <Link to={`/genres/${genre.genre.name}`}>
+                                    <Link href={`/genres/${genre.genre.name}`}>
                                         <Typography
                                             component={"span"}
                                             sx={{

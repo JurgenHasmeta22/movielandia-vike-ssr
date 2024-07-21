@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { telefunc } from 'telefunc/vite'
 import vike from "vike/plugin";
 import { UserConfig } from "vite";
 import { cjsInterop } from "vite-plugin-cjs-interop";
@@ -13,6 +14,7 @@ export default {
     plugins: [
         react(),
         vike(),
+        telefunc(),
         cjsInterop({
             dependencies: ["@mui/material/**"],
         }),

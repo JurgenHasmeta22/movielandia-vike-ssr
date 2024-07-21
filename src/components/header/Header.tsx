@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, NavLink, useSearchParams, useLocation } from "react-router-dom";
 import { useStore } from "~/store/store";
-import type IGenre from "~/types/IGenre";
 import {
     AppBar,
     Box,
@@ -28,13 +26,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useResizeWindow } from "~/hooks/useResizeWindow";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import genreService from "~/services/api/genreService";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import { useLocalStorage } from "~/hooks/useLocalStorage";
-import { useQuery } from "@tanstack/react-query";
 import HeaderMobile from "../headerMobile/HeaderMobile";
+import { Link } from "../link/Link";
+import { navigate } from "vike/client/router";
+import { Genre } from "@prisma/client";
 
 const Header = (): React.JSX.Element => {
     // #region "State, refs, hooks, theme"
@@ -43,11 +42,7 @@ const Header = (): React.JSX.Element => {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
 
     const { user, setUser, isUserLoading, mobileOpen, setMobileOpen, setOpenDrawer } = useStore();
-
     const isPageShrunk = useResizeWindow();
-    const navigate = useNavigate();
-    const location = useLocation();
-    const [searchParams, setSearchParams] = useSearchParams();
     const { removeItem } = useLocalStorage("token");
 
     const colorMode = useContext(ColorModeContext);
@@ -56,17 +51,17 @@ const Header = (): React.JSX.Element => {
     // #endregion
 
     // #region "Event handlers"
-    function handleLogout(): void {
+    async function handleLogout(): Promise<void> {
         removeItem();
         setUser(null);
         closeMenuProfile();
-        navigate("/login");
-        window.scrollTo(0, 0);
+        const navigationPromise = navigate("/");
+        await navigationPromise;
     }
 
-    function redirectToProfile(): void {
-        navigate("/profile");
-        window.scrollTo(0, 0);
+    async function redirectToProfile() {
+        const navigationPromise = navigate("/profile");
+        await navigationPromise;
     }
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -85,24 +80,6 @@ const Header = (): React.JSX.Element => {
         setAnchorElProfile(null);
     };
     // #endregion
-
-    const genresQuery = useQuery({
-        queryKey: ["genres"],
-        queryFn: () => genreService.getGenres({}),
-    });
-
-    const genres: IGenre[] = genresQuery.data?.rows! ?? [];
-
-    useEffect(() => {
-        for (const genre of genres) {
-            const option = {
-                value: genre.name,
-                label: genre.name,
-            };
-
-            setOptions([...options, option]);
-        }
-    }, []);
 
     useEffect(() => {
         if (isPageShrunk) {
@@ -149,83 +126,25 @@ const Header = (): React.JSX.Element => {
                             flexWrap={"wrap"}
                         >
                             <Box>
-                                <Link
-                                    style={{
-                                        cursor: "pointer",
-                                        textDecoration: "none",
-                                        color: colors.primary[100],
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        columnGap: 1,
-                                        alignItems: "center",
-                                        fontSize: 20,
-                                    }}
-                                    to="/"
-                                    onClick={() => {
-                                        window.scrollTo(0, 0);
-                                    }}
-                                >
-                                    MovieLandia24
-                                </Link>
+                                <Link href="/">MovieLandia24</Link>
                             </Box>
                             <Box>
                                 <List sx={{ display: "flex", flexDirection: "row", columnGap: 2 }}>
                                     <ListItem>
-                                        <NavLink
-                                            style={({ isActive, isTransitioning }) => {
-                                                return {
-                                                    fontWeight: isActive ? "bold" : "",
-                                                    color: isActive ? colors.greenAccent[500] : colors.primary[100],
-                                                    viewTransitionName: isTransitioning ? "slide" : "",
-                                                    fontSize: "16px",
-                                                    textDecorationLine: isActive ? "underline" : "none",
-                                                    textDecorationColor: isActive ? colors.greenAccent[500] : "",
-                                                    textDecorationThickness: "3px",
-                                                    textUnderlineOffset: "4px",
-                                                    cursor: "pointer",
-                                                    display: "flex",
-                                                    flexDirection: "row",
-                                                    columnGap: 1,
-                                                    alignItems: "center",
-                                                };
-                                            }}
-                                            to="/movies"
-                                            onClick={() => {
-                                                window.scrollTo(0, 0);
-                                            }}
-                                        >
+                                        <Link href="/movies">
                                             <MovieIcon fontSize={"large"} />
                                             Movies
-                                        </NavLink>
+                                        </Link>
                                     </ListItem>
                                     <ListItem
                                         onMouseEnter={openMenuGenres}
                                         onMouseLeave={closeMenuGenres}
                                         sx={{ cursor: "pointer" }}
                                     >
-                                        <NavLink
-                                            style={({ isActive, isTransitioning }) => {
-                                                return {
-                                                    fontWeight: isActive ? "bold" : "",
-                                                    color: isActive ? colors.greenAccent[500] : colors.primary[100],
-                                                    viewTransitionName: isTransitioning ? "slide" : "",
-                                                    fontSize: "16px",
-                                                    textDecorationLine: isActive ? "underline" : "none",
-                                                    textDecorationColor: isActive ? colors.greenAccent[500] : "",
-                                                    textDecorationThickness: "3px",
-                                                    textUnderlineOffset: "4px",
-                                                    cursor: "pointer",
-                                                    display: "flex",
-                                                    flexDirection: "row",
-                                                    columnGap: 1,
-                                                    alignItems: "center",
-                                                };
-                                            }}
-                                            to={"/genres"}
-                                        >
+                                        <Link href={"/genres"}>
                                             <SubtitlesIcon fontSize={"large"} />
                                             Genres
-                                        </NavLink>
+                                        </Link>
                                         <Menu
                                             anchorEl={anchorElGenres}
                                             open={Boolean(anchorElGenres)}
@@ -241,64 +160,34 @@ const Header = (): React.JSX.Element => {
                                                 },
                                             }}
                                         >
-                                            {genres.map((genre) => (
-                                                <Link
-                                                    to={`/genres/${genre.name}`}
-                                                    style={{
-                                                        textDecoration: "none",
-                                                        color: colors.primary[100],
+                                            {genres.map((genre: Genre) => (
+                                                <Box
+                                                    key={genre.id}
+                                                    onClick={async () => {
+                                                        closeMenuGenres();
+                                                        const navigationPromise = navigate(`/genres/${genre.name}`);
+                                                        await navigationPromise;
+                                                    }}
+                                                    sx={{
+                                                        cursor: "pointer",
+                                                        padding: 1.5,
+                                                        textAlign: "center",
+                                                        transition: "background-color 0.2s",
+                                                        "&:hover": {
+                                                            backgroundColor: colors.greenAccent[800],
+                                                        },
                                                     }}
                                                 >
-                                                    <Box
-                                                        key={genre.id}
-                                                        onClick={() => {
-                                                            closeMenuGenres();
-                                                            window.scrollTo(0, 0);
-                                                        }}
-                                                        sx={{
-                                                            cursor: "pointer",
-                                                            padding: 1.5,
-                                                            textAlign: "center",
-                                                            transition: "background-color 0.2s",
-                                                            "&:hover": {
-                                                                backgroundColor: colors.greenAccent[800],
-                                                            },
-                                                        }}
-                                                    >
-                                                        <Typography component={"span"}>{genre.name}</Typography>
-                                                    </Box>
-                                                </Link>
+                                                    <Typography component={"span"}>{genre.name}</Typography>
+                                                </Box>
                                             ))}
                                         </Menu>
                                     </ListItem>
                                     <ListItem>
-                                        <NavLink
-                                            style={({ isActive, isTransitioning }) => {
-                                                return {
-                                                    fontWeight: isActive ? "bold" : "",
-                                                    color: isActive ? colors.greenAccent[500] : colors.primary[100],
-                                                    viewTransitionName: isTransitioning ? "slide" : "",
-                                                    textDecoration: "none",
-                                                    fontSize: "16px",
-                                                    textDecorationLine: isActive ? "underline" : "none",
-                                                    textDecorationColor: isActive ? colors.greenAccent[500] : "",
-                                                    textDecorationThickness: "3px",
-                                                    textUnderlineOffset: "4px",
-                                                    cursor: "pointer",
-                                                    display: "flex",
-                                                    flexDirection: "row",
-                                                    columnGap: 1,
-                                                    alignItems: "center",
-                                                };
-                                            }}
-                                            to="/series"
-                                            onClick={() => {
-                                                window.scrollTo(0, 0);
-                                            }}
-                                        >
+                                        <Link href="/series">
                                             <LocalMoviesIcon fontSize={"large"} />
                                             Series
-                                        </NavLink>
+                                        </Link>
                                     </ListItem>
                                 </List>
                             </Box>
@@ -306,16 +195,16 @@ const Header = (): React.JSX.Element => {
                                 <TextField
                                     placeholder="What are you going to watch today?"
                                     size="small"
-                                    value={searchParams.get("term") ? searchParams.get("term") : ""}
-                                    onChange={(e) => {
+                                    value={term ? term : ""}
+                                    onChange={async (e) => {
                                         const value = e.target.value;
 
                                         if (value.length > 0) {
-                                            navigate(`/search?term=${value}`);
-                                            window.scrollTo(0, 0);
+                                            const navigationPromise = navigate(`/search?term=${value}`);
+                                            await navigationPromise;
                                         } else {
-                                            navigate("/search");
-                                            window.scrollTo(0, 0);
+                                            const navigationPromise = navigate("/search");
+                                            await navigationPromise;
                                         }
                                     }}
                                     InputProps={{
@@ -330,10 +219,10 @@ const Header = (): React.JSX.Element => {
                                             <InputAdornment position="end">
                                                 <Clear
                                                     sx={{ cursor: "pointer" }}
-                                                    onClick={() => {
-                                                        if (searchParams.get("term")) {
-                                                            navigate("/search");
-                                                            window.scrollTo(0, 0);
+                                                    onClick={async () => {
+                                                        if (term) {
+                                                            const navigationPromise = navigate("/search");
+                                                            await navigationPromise;
                                                         }
                                                     }}
                                                 />
@@ -354,9 +243,9 @@ const Header = (): React.JSX.Element => {
                                     <Box width={"223px"} display={"flex"} justifyContent={"center"}>
                                         <IconButton
                                             id="buttonProfile"
-                                            aria-controls={Boolean(anchorElProfile) ? "menuProfile" : undefined}
+                                            aria-controls={anchorElProfile ? "menuProfile" : undefined}
                                             aria-haspopup="true"
-                                            aria-expanded={Boolean(anchorElProfile) ? "true" : undefined}
+                                            aria-expanded={anchorElProfile ? "true" : undefined}
                                             onClick={openMenuProfile}
                                             sx={{
                                                 display: "flex",
@@ -396,17 +285,9 @@ const Header = (): React.JSX.Element => {
                                     </Box>
                                 ) : (
                                     <Box display={"flex"} flexDirection={"row"} columnGap={1}>
-                                        <Link
-                                            to="/login"
-                                            style={{
-                                                textDecoration: "none",
-                                            }}
-                                        >
+                                        <Link href="/login">
                                             <Button
                                                 variant="text"
-                                                onClick={function () {
-                                                    window.scrollTo(0, 0);
-                                                }}
                                                 sx={{
                                                     display: "flex",
                                                     flexDirection: "row",
@@ -430,12 +311,7 @@ const Header = (): React.JSX.Element => {
                                                 </Typography>
                                             </Button>
                                         </Link>
-                                        <Link
-                                            to="/register"
-                                            style={{
-                                                textDecoration: "none",
-                                            }}
-                                        >
+                                        <Link href="/register">
                                             <Button
                                                 variant="text"
                                                 sx={{
@@ -449,9 +325,6 @@ const Header = (): React.JSX.Element => {
                                                         backgroundColor: colors.greenAccent[700],
                                                         color: colors.grey[100],
                                                     },
-                                                }}
-                                                onClick={function () {
-                                                    window.scrollTo(0, 0);
                                                 }}
                                             >
                                                 <AppRegistrationIcon />

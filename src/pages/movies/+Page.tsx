@@ -1,13 +1,7 @@
 import { Movie } from "@prisma/client";
 import { useData } from "vike-react/useData";
-// import { navigate } from "vike/client/router";
 import { Data } from "./+data";
 import CardItem from "~/components/cardItem/CardItem";
-
-// onClick={async () => {
-//     const navigationPromise = navigate(`/movies/${movie.title}`);
-//     await navigationPromise;
-// }}
 
 export default function Page() {
     const movies = useData<Data>();

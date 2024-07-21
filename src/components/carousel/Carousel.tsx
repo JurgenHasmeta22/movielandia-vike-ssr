@@ -126,7 +126,7 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                 {element.description}
                             </Typography>
                             <Link
-                                to={
+                                href={
                                     `/${type}/${element.title
                                         .split("")
                                         .map((char: string) => (char === " " ? "-" : char))

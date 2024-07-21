@@ -47,19 +47,19 @@ const Footer = (): React.JSX.Element => {
                     </Typography>
                     <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack spacing={1} pt={1}>
-                        <Link to="/movies">
+                        <Link href="/movies">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <MovieIcon />
                                 <Typography>Movies</Typography>
                             </Stack>
                         </Link>
-                        <Link to="/series">
+                        <Link href="/series">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LocalMoviesIcon />
                                 <Typography>Series</Typography>
                             </Stack>
                         </Link>
-                        <Link to="/genres">
+                        <Link href="/genres">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <SubtitlesIcon />
                                 <Typography>Genres</Typography>
@@ -73,13 +73,13 @@ const Footer = (): React.JSX.Element => {
                     </Typography>
                     <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack spacing={1} mt={1}>
-                        <Link to="/login">
+                        <Link href="/login">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LockOpenIcon />
                                 <Typography>Sign In</Typography>
                             </Stack>
                         </Link>
-                        <Link to="/register">
+                        <Link href="/register">
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <AppRegistrationIcon />
                                 <Typography>Sign Up</Typography>

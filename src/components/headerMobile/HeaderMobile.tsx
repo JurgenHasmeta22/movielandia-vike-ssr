@@ -114,7 +114,7 @@ export default function HeaderMobile({
                                 alignItems: "center",
                                 fontSize: 20,
                             }}
-                            to={"/"}
+                            href={"/"}
                             onClick={() => {
                                 setOpenDrawer(false);
                                 window.scrollTo(0, 0);
@@ -142,7 +142,7 @@ export default function HeaderMobile({
                                     alignItems: "center",
                                 };
                             }}
-                            to="/movies"
+                            href="/movies"
                             onClick={() => {
                                 setOpenDrawer(false);
                                 window.scrollTo(0, 0);
@@ -171,7 +171,7 @@ export default function HeaderMobile({
                                     alignItems: "center",
                                 };
                             }}
-                            to={"/genres"}
+                            href={"/genres"}
                         >
                             <SubtitlesIcon fontSize={"large"} />
                             Genres
@@ -227,7 +227,7 @@ export default function HeaderMobile({
                                     alignItems: "center",
                                 };
                             }}
-                            to="/series"
+                            href="/series"
                             onClick={() => {
                                 setOpenDrawer(false);
                                 window.scrollTo(0, 0);
