@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import {
     MRT_ColumnDef,
     MRT_ColumnFiltersState,
@@ -13,15 +12,15 @@ import {
 } from "material-react-table";
 import { Box, Button, IconButton, ListItemIcon, MenuItem, Tooltip, Typography } from "@mui/material";
 import { Edit, Delete, Add, CheckOutlined, WarningOutlined } from "@mui/icons-material";
-import serieService from "~/services/api/serieService";
-import movieService from "~/services/api/movieService";
-import userService from "~/services/api/userService";
-import genreService from "~/services/api/genreService";
-import { toFirstWordUpperCase } from "./utils";
+// import { toFirstWordUpperCase } from "./utils";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { useModal } from "~/services/providers/ModalContext";
+import { useModal } from "~/context/ModalContext";
 import * as CONSTANTS from "~/constants/Constants";
 import { toast } from "react-toastify";
+import { deleteSerieById, getSeries } from "~/actions/serie.telefunc";
+import { deleteMovieById, getMovies } from "~/actions/movie.telefunc";
+import { deleteGenreById, getGenres } from "~/actions/genre.telefunc";
+import { navigate } from "vike/client/router";
 
 type TableAdminProps = {
     columns: MRT_ColumnDef<any>[];
@@ -48,7 +47,6 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
     });
 
     const [open, setOpen] = useState(false);
-    const navigate = useNavigate();
     const { openModal } = useModal();
     // #endregion
 
@@ -75,7 +73,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
 
                         switch (page) {
                             case "series":
-                                response = await serieService.deleteSerie(Number(id));
+                                response = await deleteSerieById(Number(id));
 
                                 if (response && response.msg) {
                                     toast.success(`Item with id ${id} deleted succesfully`);
@@ -83,7 +81,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                                 }
                                 break;
                             case "movies":
-                                response = await movieService.deleteMovie(Number(id));
+                                response = await deleteMovieById(Number(id));
 
                                 if (response && response.msg) {
                                     toast.success(`Item with id ${id} deleted succesfully`);
@@ -91,21 +89,21 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                                 }
                                 break;
                             case "genres":
-                                response = await genreService.deleteGenre(Number(id));
+                                response = await deleteGenreById(Number(id));
 
                                 if (response && response.msg) {
                                     toast.success(`Item with id ${id} deleted succesfully`);
                                     await fetchData();
                                 }
                                 break;
-                            case "users":
-                                response = await userService.deleteUser(Number(id));
+                            // case "users":
+                            //     response = await deleteUserById(Number(id));
 
-                                if (response && response.msg) {
-                                    toast.success(`Item with id ${id} deleted succesfully`);
-                                    await fetchData();
-                                }
-                                break;
+                            //     if (response && response.msg) {
+                            //         toast.success(`Item with id ${id} deleted succesfully`);
+                            //         await fetchData();
+                            //     }
+                            //     break;
                             default:
                                 response = null;
                         }
@@ -150,7 +148,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                         for (const id of keysArray) {
                             switch (page) {
                                 case "series":
-                                    response = await serieService.deleteSerie(Number(id));
+                                    response = await deleteSerieById(Number(id));
 
                                     if (response && response.msg) {
                                         toast.success(`Item with id ${id} deleted succesfully`);
@@ -158,7 +156,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                                     }
                                     break;
                                 case "movies":
-                                    response = await movieService.deleteMovie(Number(id));
+                                    response = await deleteMovieById(Number(id));
 
                                     if (response && response.msg) {
                                         toast.success(`Item with id ${id} deleted succesfully`);
@@ -166,21 +164,21 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                                     }
                                     break;
                                 case "genres":
-                                    response = await genreService.deleteGenre(Number(id));
+                                    response = await deleteGenreById(Number(id));
 
                                     if (response && response.msg) {
                                         toast.success(`Item with id ${id} deleted succesfully`);
                                         await fetchData();
                                     }
                                     break;
-                                case "users":
-                                    response = await userService.deleteUser(Number(id));
+                                // case "users":
+                                //     response = await deleteUserById(Number(id));
 
-                                    if (response && response.msg) {
-                                        toast.success(`Item with id ${id} deleted succesfully`);
-                                        await fetchData();
-                                    }
-                                    break;
+                                //     if (response && response.msg) {
+                                //         toast.success(`Item with id ${id} deleted succesfully`);
+                                //         await fetchData();
+                                //     }
+                                //     break;
                                 default:
                                     response = null;
                             }
@@ -212,8 +210,8 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
             let response: any;
 
             const queryParams = {
-                page: String(pagination?.pageIndex! + 1),
-                pageSize: String(pagination?.pageSize!),
+                page: Number(pagination?.pageIndex + 1),
+                pageSize: String(pagination?.pageSize),
                 ...(sorting?.length > 0 && {
                     ascOrDesc: sorting[0].desc ? "desc" : "asc",
                     sortBy: sorting[0].id,
@@ -226,25 +224,25 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
 
             switch (page) {
                 case "series":
-                    response = await serieService.getSeries(queryParams);
+                    response = await getSeries(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
                     break;
                 case "movies":
-                    response = await movieService.getMovies(queryParams);
+                    response = await getMovies(queryParams);
                     setRows(response.movies);
                     setRowsCount(response.count);
                     break;
                 case "genres":
-                    response = await genreService.getGenres(queryParams);
+                    response = await getGenres(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
                     break;
-                case "users":
-                    response = await userService.getUsers(queryParams);
-                    setRows(response.rows);
-                    setRowsCount(response.count);
-                    break;
+                // case "users":
+                //     response = await getUsers(queryParams);
+                //     setRows(response.rows);
+                //     setRowsCount(response.count);
+                //     break;
                 default:
                     response = { rows: [], count: 0 };
             }
@@ -349,12 +347,15 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
         renderRowActionMenuItems: ({ closeMenu, row }) => [
             <MenuItem
                 key={0}
-                onClick={() => {
-                    navigate(`/admin/${page}/${row.original.id}`, {
-                        state: {
-                            from: toFirstWordUpperCase(page),
-                        },
-                    });
+                onClick={async () => {
+                    const navigationPromise = navigate(`/admin/${page}/${row.original.id}`);
+                    await navigationPromise;
+
+                    // {
+                    //     state: {
+                    //         from: toFirstWordUpperCase(page),
+                    //     },
+                    // }
 
                     closeMenu();
                 }}
