@@ -30,12 +30,12 @@ import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
 // import HeaderMobile from "../headerMobile/HeaderMobile";
-import { Link } from "../link/Link";
 import { navigate } from "vike/client/router";
 import { Genre } from "@prisma/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { getGenres } from "~/actions/genre.telefunc";
 import { usePageContext } from "vike-react/usePageContext";
+import { Link } from "../../ui/link/Link";
 
 const Header = (): React.JSX.Element => {
     // #region "State, refs, hooks, theme"

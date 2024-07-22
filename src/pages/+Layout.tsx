@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
-import ScrollToTop from "~/components/scrollToTop/scrollToTop";
-import Header from "~/components/header/Header";
+import ScrollToTop from "~/components/root/ui/scrollToTop/scrollToTop";
+import Header from "~/components/root/layout/header/Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (

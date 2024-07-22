@@ -5,6 +5,6 @@ import { getMovieByTitle } from "~/actions/movie.telefunc";
 export type Data = Awaited<ReturnType<typeof data>>;
 
 export const data = async (pageContext: PageContextServer) => {
-    const movie: Movie | null = await getMovieByTitle(pageContext.routeParams.title, {});
+    const movie: Movie | null = await getMovieByTitle(pageContext.routeParams.movieTitle, {});
     return movie;
 };
