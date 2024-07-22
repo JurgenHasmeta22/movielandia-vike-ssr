@@ -1,8 +1,8 @@
-import type IUser from "./IUser";
+import { User } from "@prisma/client";
 
 export default interface AppStoreState {
-    user: IUser | null;
-    setUser: (data: IUser | null) => void;
+    user: User | null;
+    setUser: (data: User | null) => void;
     isUserLoading: boolean;
     setIsUserLoading: (data: boolean) => void;
     mobileOpen?: boolean | any;
