@@ -1,7 +1,7 @@
 import { Movie } from "@prisma/client";
 import { useData } from "vike-react/useData";
 import { Data } from "./+data";
-import CardItem from "~/components/cardItem/CardItem";
+import CardItem from "~/components/root/ui/cardItem/CardItem";
 
 export default function Page() {
     const movies = useData<Data>();
