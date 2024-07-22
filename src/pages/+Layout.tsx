@@ -1,7 +1,5 @@
 import React from "react";
 import "./style.css";
-import ScrollToTop from "~/components/root/ui/scrollToTop/scrollToTop";
-import Header from "~/components/root/layout/header/Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -12,7 +10,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 margin: "auto",
             }}
         >
-            <Header />
             <Sidebar>
                 <a href="/">Welcome</a>
                 <a href="/movies">Movies list</a>
@@ -53,7 +50,6 @@ function Content({ children }: { children: React.ReactNode }) {
             >
                 {children}
             </div>
-            <ScrollToTop />
         </div>
     );
 }
