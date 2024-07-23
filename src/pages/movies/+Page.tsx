@@ -56,7 +56,7 @@ export default function Page() {
                         <SortSelect
                             sortBy={urlParsed.search.sortBy ? urlParsed.search.sortBy : ""}
                             ascOrDesc={urlParsed.search.ascOrDesc ? urlParsed.search.ascOrDesc : ""}
-                            onChange={(event) => {
+                            onChange={() => {
                                 // handleChangeSorting("movies", event);
                             }}
                             type="list"

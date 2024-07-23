@@ -26,6 +26,5 @@ export const data = async (pageContext: PageContextServer) => {
     const responseMovies = await getMovies(queryParams);
     const responseLatestMovies = await getLatestMovies();
 
-    console.log(responseMovies, responseLatestMovies);
     return { moviesData: responseMovies, latestMovies: responseLatestMovies };
 };
