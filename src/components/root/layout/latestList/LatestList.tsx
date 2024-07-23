@@ -1,6 +1,6 @@
 import { Box, Divider, Stack, Typography, useTheme } from "@mui/material";
-import CardItem from "../cardItem/CardItem";
 import { tokens } from "~/utils/theme";
+import CardItem from "../../ui/cardItem/CardItem";
 
 interface ILatestListProps {
     data: any;

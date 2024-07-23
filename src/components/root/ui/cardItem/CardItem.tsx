@@ -75,7 +75,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                             }}
                         >
                             <img
-                                src="/assets/icons/imdb.svg"
+                                src="/icons/imdb.svg"
                                 alt="IMDb Icon"
                                 style={{ width: "20px", height: "20px" }}
                             />

@@ -50,8 +50,7 @@ const Header = (): React.JSX.Element => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const pageContext = usePageContext();
-    console.log(pageContext);
+    const { urlParsed } = usePageContext();
     // #endregion
 
     // #region "Event handlers"
@@ -240,12 +239,12 @@ const Header = (): React.JSX.Element => {
                                         <InputAdornment position="end">
                                             <Clear
                                                 sx={{ cursor: "pointer" }}
-                                                // onClick={async () => {
-                                                //     if (term) {
-                                                //         const navigationPromise = navigate("/search");
-                                                //         await navigationPromise;
-                                                //     }
-                                                // }}
+                                                onClick={async () => {
+                                                    if (urlParsed.search.term) {
+                                                        const navigationPromise = navigate("/search");
+                                                        await navigationPromise;
+                                                    }
+                                                }}
                                             />
                                         </InputAdornment>
                                     ),

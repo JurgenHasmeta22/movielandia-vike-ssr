@@ -37,6 +37,7 @@ export default function SortSelect({ sortBy, ascOrDesc, onChange, type }: ISortS
         if (sortBy && ascOrDesc) {
             return sortBy + toFirstWordUpperCase(ascOrDesc);
         }
+        
         return getDefaultValue();
     };
 

@@ -14,7 +14,7 @@ import { Box, Button, IconButton, ListItemIcon, MenuItem, Tooltip, Typography } 
 import { Edit, Delete, Add, CheckOutlined, WarningOutlined } from "@mui/icons-material";
 // import { toFirstWordUpperCase } from "./utils";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { useModal } from "~/context/ModalContext";
+import { useModal } from "~/contexts/ModalContext";
 import * as CONSTANTS from "~/constants/Constants";
 import { toast } from "react-toastify";
 import { deleteSerieById, getSeries } from "~/actions/serie.telefunc";

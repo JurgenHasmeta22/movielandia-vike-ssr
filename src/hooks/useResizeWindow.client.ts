@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useStore } from "~/store/store";
+import { useStore } from "~/store/store.client";
 
 export function useResizeWindow() {
     const { isPageShrunk, setIsPageShrunk } = useStore();

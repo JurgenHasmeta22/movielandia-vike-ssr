@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import RightPanel from "~/components/admin/rightPanel/RightPanel";
+import RightPanel from "~/components/admin/ui/rightPanel/RightPanel";
 
 type RightPanelContextType = {
     rightPanelProps: any;

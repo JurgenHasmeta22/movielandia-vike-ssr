@@ -5,12 +5,10 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import IMovie from "~/types/IMovie";
-import ISerie from "~/types/ISerie";
-import { Link } from "../link/Link";
+import { navigate } from "vike/client/router";
 
 interface ICarouselProps {
-    data: IMovie[] | ISerie[];
+    data: any;
     type: string;
 }
 
@@ -77,7 +75,7 @@ const Carousel = ({ data, type }: ICarouselProps) => {
             }}
         >
             <Slider {...settings}>
-                {data.map((element: IMovie | ISerie, index: number) => (
+                {data.map((element: any, index: number) => (
                     <Box
                         key={index}
                         sx={{
@@ -125,31 +123,32 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                             <Typography variant="body2" sx={{ mb: 2 }}>
                                 {element.description}
                             </Typography>
-                            <Link
-                                href={
-                                    `/${type}/${element.title
-                                        .split("")
-                                        .map((char: string) => (char === " " ? "-" : char))
-                                        .join("")}` || "#"
-                                }
+                            <Button
+                                variant="text"
+                                color="primary"
+                                className="carousel-button"
+                                size="medium"
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    bgcolor: "rgba(0, 0, 0, 0.5)",
+                                    borderRadius: "20%",
+                                    p: 1.5,
+                                }}
+                                onClick={async () => {
+                                    const navigationPromise = navigate(
+                                        `/${type}/${element.title
+                                            .split("")
+                                            .map((char: string) => (char === " " ? "-" : char))
+                                            .join("")}` || "#",
+                                    );
+
+                                    await navigationPromise;
+                                }}
                             >
-                                <Button
-                                    variant="text"
-                                    color="primary"
-                                    className="carousel-button"
-                                    size="medium"
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        bgcolor: "rgba(0, 0, 0, 0.5)",
-                                        borderRadius: "20%",
-                                        p: 1.5,
-                                    }}
-                                >
-                                    <PlayCircleIcon fontSize="large" color="secondary" />
-                                </Button>
-                            </Link>
+                                <PlayCircleIcon fontSize="large" color="secondary" />
+                            </Button>
                         </Box>
                     </Box>
                 ))}

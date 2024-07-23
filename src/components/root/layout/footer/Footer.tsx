@@ -20,7 +20,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import { Link } from "../link/Link";
+import { Link } from "../../ui/link/Link";
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();
@@ -47,24 +47,24 @@ const Footer = (): React.JSX.Element => {
                     </Typography>
                     <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack spacing={1} pt={1}>
-                        <Link href="/movies">
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <Link href="/movies">
                                 <MovieIcon />
                                 <Typography>Movies</Typography>
-                            </Stack>
-                        </Link>
-                        <Link href="/series">
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            </Link>
+                        </Stack>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <Link href="/series">
                                 <LocalMoviesIcon />
                                 <Typography>Series</Typography>
-                            </Stack>
-                        </Link>
-                        <Link href="/genres">
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            </Link>
+                        </Stack>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <Link href="/genres">
                                 <SubtitlesIcon />
                                 <Typography>Genres</Typography>
-                            </Stack>
-                        </Link>
+                            </Link>
+                        </Stack>
                     </Stack>
                 </Box>
                 <Box>
@@ -73,18 +73,18 @@ const Footer = (): React.JSX.Element => {
                     </Typography>
                     <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack spacing={1} mt={1}>
-                        <Link href="/login">
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <Link href="/login">
                                 <LockOpenIcon />
                                 <Typography>Sign In</Typography>
-                            </Stack>
-                        </Link>
-                        <Link href="/register">
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            </Link>
+                        </Stack>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <Link href="/register">
                                 <AppRegistrationIcon />
                                 <Typography>Sign Up</Typography>
-                            </Stack>
-                        </Link>
+                            </Link>
+                        </Stack>
                     </Stack>
                 </Box>
                 <Box>
